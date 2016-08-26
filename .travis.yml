@@ -24,9 +24,9 @@ before_install:
 - mkdir -p lib
 # Here we use the decrypted service account credentials to authenticate the command line tool
  
-- export PATH=${HOME}/google-cloud-sdk/bin
-- gcloud auth activate-service-account --key-file client-secret.json
 - export PATH=$PATH:${HOME}/google-cloud-sdk/bin
+- gcloud auth activate-service-account --key-file client-secret.json
+
 # [END auth]
 install:
 # Set the correct project to deploy to
