@@ -1,7 +1,7 @@
 language: python
 deploy:
   provider: gae
-  keyfile: credentials.tar.gz
+  keyfile: client-secret.json
   project: pyramid-prototype
 script: python test_main.py
 before_install:
