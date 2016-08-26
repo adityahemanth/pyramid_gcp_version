@@ -1,3 +1,7 @@
+branches:
+  only:
+    - test
+
 deploy:
   provider: gae
   keyfile: credentials.tar.gz.enc
