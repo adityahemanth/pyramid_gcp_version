@@ -10,6 +10,7 @@ handlers:
 
 - url: /lcc_tree
   static_files: lcco.json
+  upload: lcco\.json
 
 - url: /bootstrap
   static_dir: bootstrap
