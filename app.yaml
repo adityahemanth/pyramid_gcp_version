@@ -1,7 +1,6 @@
 runtime: python27
 api_version: 1
 threadsafe: true
-application: pyramid-prototype
 
 # [START handlers]
 handlers:
@@ -9,9 +8,9 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
-- url: /lcc_tree
-  static_files: lcco.json
-  upload: lcco\.json
+- url: /statics
+  static_dir: statics
+  application_readable: true
 
 - url: /bootstrap
   static_dir: bootstrap

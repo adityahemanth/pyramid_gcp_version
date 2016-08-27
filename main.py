@@ -9,9 +9,11 @@
 # [START imports]
 import os
 import urllib
+import json
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
+from hierarchy import tree, node
 
 import jinja2
 import webapp2
@@ -21,7 +23,27 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
+
+# classification hierarchy structure
+path = os.path.join(os.path.split(__file__)[0], 'statics/lcco.json')
+LCC_TREE = tree(path)
+
 # [END imports]
+
+# [START tree]
+class Tree(webapp2.RequestHandler):
+
+    def get(self):
+
+        req_node = self.request.get('request_node')
+        current_node = LCC_TREE.getNode(req_node)
+
+        if current_node:
+            self.response.write(current_node.getDesc())
+
+        else:
+            self.response.write('No such LCC #')
+# [END tree]
 
 # [START main_page]
 class MainPage(webapp2.RequestHandler):
@@ -57,6 +79,7 @@ class MainPage(webapp2.RequestHandler):
 # to false when deploying.
 
 app = webapp2.WSGIApplication([
+    ('/lcco', Tree ),
     ('/', MainPage),
 ], debug=True)
 # [END app]

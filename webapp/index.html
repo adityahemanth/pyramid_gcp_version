@@ -31,11 +31,19 @@
       </div>
     </div>
     <div class="container">
-    {% if user %}
-      <h2> Welcome {{user}} !!</h2>
-    {% else %}
-      <h2> Welcome! Please login to proceed </h2>
-    {% endif %}
+      {% if user %}
+        <h2> Welcome {{user}} !!</h2>
+      {% else %}
+        <h2> Welcome! Please login to proceed </h2>
+      {% endif %}
+
+      <div class='container'>
+        {% for child in lcco%}
+          <p> {{child[0]}} </p>
+        {% endfor %}
+
+      </div>
+
     </div>
   </body>
 </html>
