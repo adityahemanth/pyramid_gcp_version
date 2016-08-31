@@ -8,6 +8,18 @@ Outline ([LCCO][101]) to view the term frequenies of each of the categories in t
 Data is stored in App Engine (NoSQL) High Replication Datastore (HRD) and retrieved using a strongly consistent
 (ancestor) query.
 
+## Supported calls:
+
+    '/' - Home page
+    '/statics' - Calls to static resources
+      Eg. /statics/lcco.json
+      
+    RESTful Calls:
+    '/lcco?request=###' 
+    
+    This returns a JSON response of the LCC category containing the 
+    requested LCC number.
+    
 ## Key Concepts
 - [Library of Congress Classification][8]
 - [Latent Semantic Analysis][9]
