@@ -11,15 +11,15 @@ Data is stored in App Engine (NoSQL) High Replication Datastore (HRD) and retrie
 ## Supported Calls:
 ###### Home Page
 - '/'
-    * Allows users to login and perform training and testing independently
+   Allows users to login and perform training and testing independently
 
 ###### Static Files:
 - '/statics'
-    * '/statics/lcco.json' responds with the entire LCC hierarchy
+   '/statics/lcco.json' responds with the entire LCC hierarchy
 
 ###### RESTful Calls:
 - '/lcco?request=**request**'
-    * Responds with the category containing the request node along with all its children
+   Responds with the category containing the request node along with all its children
 
 ## Key Concepts
 - [Library of Congress Classification][8]
