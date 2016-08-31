@@ -11,13 +11,13 @@ Data is stored in App Engine (NoSQL) High Replication Datastore (HRD) and retrie
 ## Supported Calls:
 ###### Home Page
 ```
-**'/'**
+'/'
 ```
 Allows users to login and perform training and testing independently
 
 ###### Static Files:
 ```
-**'/statics'**
+'/statics'
 ```
 **'/statics/lcco.json'** responds with the entire LCC hierarchy
 
