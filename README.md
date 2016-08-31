@@ -10,16 +10,19 @@ Data is stored in App Engine (NoSQL) High Replication Datastore (HRD) and retrie
 
 ## Supported calls:
 
-    '/' - Home page
+- Home Page:
+    '/'
+
+- Static Resources:
     '/statics' - Calls to static resources
       Eg. /statics/lcco.json
       
-    RESTful Calls:
+- RESTful Calls:
     '/lcco?request=###' 
     
-    This returns a JSON response of the LCC category containing the 
-    requested LCC number.
-    
+This returns a JSON response of the LCC category containing the 
+requested LCC number.
+
 ## Key Concepts
 - [Library of Congress Classification][8]
 - [Latent Semantic Analysis][9]
