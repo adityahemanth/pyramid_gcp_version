@@ -44,7 +44,7 @@ class Tree(webapp2.RequestHandler):
 
         if children:
             for child in children:
-                child_list.append(child.getLCCN())
+                child_list.append( {'LCCN' : child.getLCCN(), 'description' : child.getDesc()} )
 
         resp['children'] = child_list
 

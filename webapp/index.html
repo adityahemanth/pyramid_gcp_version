@@ -4,43 +4,38 @@
   <head>
     <!-- [START css] -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
     <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
 
     <script src="/bootstrap/js/nodes.js"></script>
 
-    <!-- [END css] -->
-    <style type="text/css">
-      body {
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color: #f5f5f5;
-      }
-    </style>
   </head>
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Pyramid</a>
-          <div class="nav-collapse collapse pull-right">
-            <a href="{{ url|safe }}" class="btn">{{ url_linktext }}</a>
-          </div>
+          <a class="navbar-brand" href="#">Pyramid</a>
         </div>
-      </div>
-    </div>
-    <div class="container">
-      {% if user %}
-        <h2> Welcome {{user}} !!</h2>
-      {% else %}
-        <h2> Welcome! Please login to proceed </h2>
-      {% endif %}
 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url|safe }}">{{ url_linktext }}</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
       <div class='container'>
         <div class=row>
           <div class='col-md-8 col-md-offset-2'>
@@ -73,55 +68,26 @@
         set_back()
       });
 
-      function set_data(data) {
-        $.get('/lcco', {
-          request : data
-        }, function(data, status){
-            data = JSON.parse(data)
-            if(data != null){
-
-              list.empty()
-              for(i = 0; i < data.children.length; i++){
-                list.append(
-                  $('<li>').attr('class', 'list-group-item').append(
-                    $('<p>').attr('class', 'node-item').append(data.children[i])
-                  )
-                )
-              }
-            }
-        });
-      }
-
       $('body').on('click','.node-item',function(){
-         lccn = $(this).text()
-         back.push(lccn)
-         set_data(lccn);
-         set_back()
+        lccn = $(this).text()
+        back.push(lccn)
+        set_data(lccn);
+        set_back()
       });
 
 
       $('body').on('click','.back-item',function(){
-         lccn = $(this).text()
-         curr = back[back.length - 1]
-         while (curr != lccn) {
-            back.pop()
-            curr = back[back.length - 1]
-         }
-
-          set_data(lccn);
-          set_back()
-         
-      });
-
-      function set_back(){
-
-        $('#back_list').empty()
-        for(i = 0; i < back.length; i++){
-          $('#back_list').append(
-            $('<li>').attr('class', 'back-item').append(back[i])
-            )
+        lccn = $(this).text()
+        curr = back[back.length - 1]
+        while (curr != lccn) {
+          back.pop()
+          curr = back[back.length - 1]
         }
-      }
+
+        set_data(lccn);
+        set_back()
+       
+      });
 
     </script>
   </body>
