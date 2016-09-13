@@ -1,6 +1,7 @@
 *~
 *.pyc
 *.DS_Store
+.DS_Store
 client-secret.json
 credentials.tar.gz
 

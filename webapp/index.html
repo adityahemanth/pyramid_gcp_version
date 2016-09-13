@@ -3,8 +3,12 @@
 <html>
   <head>
     <!-- [START css] -->
-    <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.css">
-    <link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+    <script src="/bootstrap/js/nodes.js"></script>
+
     <!-- [END css] -->
     <style type="text/css">
       body {
@@ -38,13 +42,88 @@
       {% endif %}
 
       <div class='container'>
-        {% for child in lcco%}
-          <p> {{child[0]}} </p>
-        {% endfor %}
+        <div class=row>
+          <div class='col-md-8 col-md-offset-2'>
+            <h3> Library of Congress Classification </h3>
+
+        <ol class="breadcrumb" id='back_list'>
+        </ol>
 
       </div>
 
+        <div class='row'>
+          <div class='col-md-6 col-md-offset-3''>
+            <ul class='list-group' id='data-list'>
+            </ul>
+          </div>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Loads script -->
+    <script type="text/javascript">
+
+    // local vars
+      var list = $('#data-list')
+      var back = []
+      $(document).ready(function(){
+        set_data('1')
+        back.push('1')
+        set_back()
+      });
+
+      function set_data(data) {
+        $.get('/lcco', {
+          request : data
+        }, function(data, status){
+            data = JSON.parse(data)
+            if(data != null){
+
+              list.empty()
+              for(i = 0; i < data.children.length; i++){
+                list.append(
+                  $('<li>').attr('class', 'list-group-item').append(
+                    $('<p>').attr('class', 'node-item').append(data.children[i])
+                  )
+                )
+              }
+            }
+        });
+      }
+
+      $('body').on('click','.node-item',function(){
+         lccn = $(this).text()
+         back.push(lccn)
+         set_data(lccn);
+         set_back()
+      });
+
+
+      $('body').on('click','.back-item',function(){
+         lccn = $(this).text()
+         curr = back[back.length - 1]
+         while (curr != lccn) {
+            back.pop()
+            curr = back[back.length - 1]
+         }
+
+          set_data(lccn);
+          set_back()
+         
+      });
+
+      function set_back(){
+
+        $('#back_list').empty()
+        for(i = 0; i < back.length; i++){
+          $('#back_list').append(
+            $('<li>').attr('class', 'back-item').append(back[i])
+            )
+        }
+      }
+
+    </script>
   </body>
 </html>
 {% endautoescape %}

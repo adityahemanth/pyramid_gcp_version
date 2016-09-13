@@ -19,7 +19,6 @@ class util:
 		if not node1 or not node2:
 			return False
 
-
 		if node1 == node2:
 			return True
 
@@ -27,20 +26,22 @@ class util:
 		if node1[0] == '1':
 			return True
 
+
 		if node1[0] != node2[0]:
 			if len(node1) == 1 and len(node2) == 1:
-				return True
+				return False
 
-			return False
+			return node1[0] > node2[0]
+
 
 		else:
 			if len(node1) == 1:
 				return True
 
 
-		if node1[1] != node2[1]:
-			if not (node1[1].isdigit() and node2[1].isdigit()):
-				return False
+		# if node1[1] != node2[1]:
+		# 	if not (node1[1].isdigit() and node2[1].isdigit()):
+		# 		return False
 
 		# match the first letters of the two letters to determine they 
 		# belong in the same branch
