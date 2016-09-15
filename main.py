@@ -35,11 +35,21 @@ class Tree(webapp2.RequestHandler):
 
     def get(self):
 
-        req_node = self.request.get('request_node')
+        req_node = self.request.get('request')
         current_node = LCC_TREE.getNode(req_node)
 
+        resp = {'description' : current_node.getDesc(), 'LCCN' : current_node.getLCCN()}
+        children = current_node.getChildren()
+        child_list = []
+
+        if children:
+            for child in children:
+                child_list.append( {'LCCN' : child.getLCCN(), 'description' : child.getDesc()} )
+
+        resp['children'] = child_list
+
         if current_node:
-            self.response.write(current_node.getDesc())
+            self.response.write(json.dumps(resp))
 
         else:
             self.response.write('No such LCC #')

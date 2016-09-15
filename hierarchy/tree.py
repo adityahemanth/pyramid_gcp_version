@@ -54,14 +54,22 @@ class tree:
 		return node_list
 
 
+	# returns the parent node 
+	# containing this node.
+
 	def getNode(self, LCCN):
 		return self._traverse(self.root, LCCN)
 
+
+	# recursively traverses the tree
+	# to find the best fit node
 
 	def _traverse(self, curr_node, LCCN):
 
 		if not curr_node:
 			return
+
+		print curr_node.getLCCN()
 
 		utility = util()
 		if utility.contains(curr_node.getLCCN(), LCCN):
