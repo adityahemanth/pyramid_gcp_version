@@ -1,20 +1,20 @@
 function set_data(data) {
-$.get('/lcco', {
-  request : data
-}, function(data, status){
-    data = JSON.parse(data)
-    if(data != null){
+	$.get('/lcco', {
+	 	request : data
+	}, function(data, status){
+	    data = JSON.parse(data)
+	    if(data != null){
 
-      list.empty()
-      for(i = 0; i < data.children.length; i++){
-        list.append(
-          $('<li>').attr('class', 'list-group-item').append(
-            $('<p>').attr('class', 'node-item').append(data.children[i].LCCN , ' : ', data.children[i].description)
-          )
-        )
-      }
-    }
-});
+			list.empty()
+			for(i = 0; i < data.children.length; i++){
+				list.append(
+					$('<li>').attr('class', 'list-group-item').append(
+						$('<p>').attr('class', 'node-item').append(data.children[i].LCCN , ' : ', data.children[i].description)
+					)
+				)
+			}
+	    }
+	});
 }
 
 
@@ -27,3 +27,4 @@ $('#back_list').empty()
 	    )
 	}
 }
+

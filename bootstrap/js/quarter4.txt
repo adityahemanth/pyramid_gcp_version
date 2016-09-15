@@ -1,0 +1,25 @@
+##################################################################################################
+								MY TODO LIST FOR QUARTER-4
+##################################################################################################
+
+
+Important things I have to concentrate on:
+
+-	Project
+		*	Learn pymarc
+		* 	Learn gensim
+			i.	Make a test app that does the computation for
+				just a few strings
+				
+		*	deploy the app on GCP
+		* 	make sure it works it works locally
+
+
+
+-	Python
+		*	parallel programming
+		*	neural nets
+		*	machine learning basics
+		*	hardware software interface
+		*	object recognition and other stuff
+		*	multi-threading and mutex locks

@@ -69,8 +69,6 @@ class tree:
 		if not curr_node:
 			return
 
-		print curr_node.getLCCN()
-
 		utility = util()
 		if utility.contains(curr_node.getLCCN(), LCCN):
 			children = curr_node.getChildren()

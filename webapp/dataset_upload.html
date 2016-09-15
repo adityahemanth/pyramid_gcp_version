@@ -29,24 +29,32 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            {% if user %}
-            <li><a href='/upload'> Upload </a></li>
-            {% endif %}
             <li><a href="{{ url|safe }}">{{ url_linktext }}</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
 
-    <div class="container">
       <div class='container'>
         <div class=row>
           <div class='col-md-8 col-md-offset-2'>
-            <h3> Library of Congress Classification </h3>
+            <h3> Upload Datasets </h3>
+            <p> Uploaded datasets must be .mrc (MARC record ) format for 
+                them to be processed.</p>
 
-        <ol class="breadcrumb" id='back_list'>
-        </ol>
+              <div class='row'>
+                <div class='col-md-6'>
+                  <form action="{{ upload_url }}" style='margin-top:20px' method="POST" enctype="multipart/form-data">
+                    <label class="btn btn-default btn-file" for="my-file-selector">
+                        <input id="my-file-selector" type="file" name='file' style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
+                        Upload File
+                    </label>
+                    <span class='label label-info' style='padding-left:15px; padding-right:15px;' id="upload-file-info">  path-to-file  </span><br>
 
+                    <input style="margin-top:20px" class='btn btn-primary' type="submit" name="submit" value="Submit">
+                  </form>
+                </div>
+              </div>
       </div>
 
         <div class='row'>
@@ -58,41 +66,6 @@
       </div>
 
     </div>
-
-    <!-- Loads script -->
-    <script type="text/javascript">
-
-    // local vars
-      var list = $('#data-list')
-      var back = []
-      $(document).ready(function(){
-        set_data('1')
-        back.push('1')
-        set_back()
-      });
-
-      $('body').on('click','.node-item',function(){
-        lccn = $(this).text()
-        back.push(lccn)
-        set_data(lccn);
-        set_back()
-      });
-
-
-      $('body').on('click','.back-item',function(){
-        lccn = $(this).text()
-        curr = back[back.length - 1]
-        while (curr != lccn) {
-          back.pop()
-          curr = back[back.length - 1]
-        }
-
-        set_data(lccn);
-        set_back()
-       
-      });
-
-    </script>
   </body>
 </html>
 {% endautoescape %}
