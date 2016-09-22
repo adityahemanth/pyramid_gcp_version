@@ -10,9 +10,12 @@ Important things I have to concentrate on:
 		* 	Learn gensim
 			i.	Make a test app that does the computation for
 				just a few strings
-				
+
 		*	deploy the app on GCP
 		* 	make sure it works it works locally
+		*	build a GCP back-end that supports each of the operation
+		*	
+
 
 
 
@@ -23,3 +26,57 @@ Important things I have to concentrate on:
 		*	hardware software interface
 		*	object recognition and other stuff
 		*	multi-threading and mutex locks
+
+
+- Project Ideas
+	
+	What data do I have:
+
+		- Build a protocol for distributed systems
+	
+
+	I will work on Information retrieval or databases
+	Problems with distributed systems:
+	-	Faulty networks : can go down
+	-	Faulty machines : can go offline
+	-	Faulty disks 	: can get corrupted
+	-	Latency 		: cant wait around forever
+	-	Concept of load
+	-	Spin up instances as needed
+	-	Health checks
+	-	once the system goes down it never joins the pool
+	-	machine levels
+	- 	zones			: regions with minimum inter-DC latency
+	-	load balancing is done within a zone.
+	-	control and disk layers
+	-	data doesn't go offline once control system goes offline
+	-	data layer has business data, control layer has meta-data
+	-	cache layer : serves requests from memory
+	-	do to disk layer only to write
+	-	cache changes cannot be served until commited to disk
+	-	servers sit over control layer
+	-	load balances sit over servers
+
+
+
+- Design stack:
+
+	|----------------|
+	|  load balancer |
+	|________________|
+	|----------------|
+	|  servers		 |
+	|________________|
+	|----------------|
+	|  control		 |
+	|________________|
+	|----------------|
+	|  cache		 |
+	|________________|
+	|----------------|
+	|  disks 		 |
+	|________________|
+
+
+
+

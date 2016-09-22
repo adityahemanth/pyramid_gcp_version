@@ -38,6 +38,7 @@
       <div class='container'>
         <div class=row>
           <div class='col-md-8 col-md-offset-2'>
+            <div class="alert alert-warning hide" id='alert' role="alert" ></div>
             <h3> Upload Datasets </h3>
             <p> Uploaded datasets must be .mrc (MARC record ) format for 
                 them to be processed.</p>
@@ -66,6 +67,36 @@
       </div>
 
     </div>
+
+    <script>
+
+    $('form').submit(function () {
+
+        // Get the Login Name value and trim it
+        var name = $.trim($('#my-file-selector').val());
+
+        // Check if empty of not
+        if (name  === '') {
+            $('#alert').attr('class', 'alert alert-warning').html('<strong>Warning!</strong> Select a file to upload!')
+            return false;
+        }
+    });
+
+
+    $("#my-file-selector").change(function () {
+
+        selector = $('#my-file-selector')
+
+        var fileExtension = ['mrc', 'dat'];
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            $('#alert').attr('class', 'alert alert-warning').html('<strong>Warning!</strong> Only .mrc, .dat files allowed!')
+            $('#upload-file-info').html('path-to-file')
+            selector.replaceWith( selector = selector.clone( true ) );
+
+        }
+    });
+
+    </script>
   </body>
 </html>
 {% endautoescape %}

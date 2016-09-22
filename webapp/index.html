@@ -42,10 +42,13 @@
       <div class='container'>
         <div class=row>
           <div class='col-md-8 col-md-offset-2'>
-            <h3> Library of Congress Classification </h3>
+            <h3> Library of Congress Classification </h3><br /><br />
 
-        <ol class="breadcrumb" id='back_list'>
+      <div class='row'>
+        <h5 class='col-md-2'> Back stack : </h5> 
+        <ol class='col-md-10' id='back_list'>
         </ol>
+      </div>
 
       </div>
 
@@ -71,7 +74,7 @@
         set_back()
       });
 
-      $('body').on('click','.node-item',function(){
+      $('body').on('click','.list-group-item',function(){
         lccn = $(this).text()
         back.push(lccn)
         set_data(lccn);
