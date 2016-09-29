@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+  <head>
+    <!-- [START css] -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+    <script src="/bootstrap/js/nodes.js"></script>
+
+  </head>
+  <body>
+
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Pyramid</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url|safe }}">{{ url_linktext }}</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+      <div class='container'>
+        <div class=row>
+          <div class='col-md-8 col-md-offset-2'>
+            <div class="alert alert-warning hide" id='alert' role="alert" ></div>
+            <h3> Upload Datasets </h3>
+            <p> Uploaded datasets must be .mrc (MARC record ) format for 
+                them to be processed.</p>
+
+              <div class='row'>
+                <div class='col-md-6'>
+                  <form action="{{ upload_url }}" style='margin-top:20px' method="POST" enctype="multipart/form-data">
+                    <label class="btn btn-default btn-file" for="my-file-selector">
+                        <input id="my-file-selector" type="file" name='file' style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
+                        Upload File
+                    </label>
+                    <span class='label label-info' style='padding-left:15px; padding-right:15px;' id="upload-file-info">  path-to-file  </span><br>
+
+                    <input style="margin-top:20px" class='btn btn-primary' type="submit" name="submit" value="Submit">
+                  </form>
+                </div>
+              </div>
+      </div>
+
+        <div class='row'>
+          <div class='col-md-6 col-md-offset-3''>
+            <ul class='list-group' id='data-list'>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+
+    $('form').submit(function () {
+
+        // Get the Login Name value and trim it
+        var name = $.trim($('#my-file-selector').val());
+
+        // Check if empty of not
+        if (name  === '') {
+            $('#alert').attr('class', 'alert alert-warning').html('<strong>Warning!</strong> Select a file to upload!')
+            return false;
+        }
+    });
+
+
+    $("#my-file-selector").change(function () {
+
+        selector = $('#my-file-selector')
+
+        var fileExtension = ['mrc', 'dat'];
+        if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+            $('#alert').attr('class', 'alert alert-warning').html('<strong>Warning!</strong> Only .mrc, .dat files allowed!')
+            $('#upload-file-info').html('path-to-file')
+            selector.replaceWith( selector = selector.clone( true ) );
+
+        }
+    });
+
+    </script>
+  </body>
+</html>
+{% endautoescape %}
