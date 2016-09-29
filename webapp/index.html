@@ -44,19 +44,37 @@
           <div class='col-md-8 col-md-offset-2'>
             <h3> Library of Congress Classification </h3><br /><br />
 
-      <div class='row'>
+      <div class='row' style='background-color: #e5e5e5; margin-bottom: 20px; '>
         <h5 class='col-md-2'> Back stack : </h5> 
         <ol class='col-md-10' id='back_list'>
         </ol>
       </div>
 
       </div>
-
         <div class='row'>
-          <div class='col-md-6 col-md-offset-3''>
+          <div class='col-md-8 card'>
+            <table class='table table-striped' id='data-table'>
+              <tr>
+                <th> LCCN </th>
+                <th> Description </th>
+                <th> MARC count </th>
+                <th> Word Frequency </th>
+              </tr>
+            </table>
             <ul class='list-group' id='data-list'>
             </ul>
           </div>
+
+          <div class='col-md-4 card'>
+            <table class='table table-striped' id='word-table'>
+              <tr>
+                <th> Word </th>
+                <th> Frequency </th>
+              </tr>
+            </table>
+          </div>
+
+
         </div>
       </div>
 
@@ -66,16 +84,19 @@
     <script type="text/javascript">
 
     // local vars
-      var list = $('#data-list')
+      var table = $('#data-table')
+      var word_table = $('#word-table')
       var back = []
+      var STATS
+
       $(document).ready(function(){
-        set_data('1')
-        back.push('1')
-        set_back()
+        get_stats()
       });
 
-      $('body').on('click','.list-group-item',function(){
-        lccn = $(this).text()
+      $('body').on('click','.node-item',function(){
+        lccn = $(this).parent().children()
+        lccn = lccn.first().text()
+        console.log(lccn)
         back.push(lccn)
         set_data(lccn);
         set_back()
@@ -93,6 +114,12 @@
         set_data(lccn);
         set_back()
        
+      });
+
+
+      $('body').on('click','.word-link',function(){
+        lccn = $(this).first().text().slice(0,-5)
+        set_word_freq(lccn)
       });
 
     </script>

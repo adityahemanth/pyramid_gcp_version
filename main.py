@@ -16,6 +16,7 @@ from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from hierarchy import tree, node
+from collections import OrderedDict
 
 import jinja2
 import webapp2
@@ -29,6 +30,15 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 # classification hierarchy structure
 path = os.path.join(os.path.split(__file__)[0], 'statics/lcco.json')
 LCC_TREE = tree(path)
+
+STATS = []
+with open('statics/stats.json', 'rb') as stat_file:
+    STATS = dict(json.load(stat_file))
+
+# master frequency dictionary
+fdict = OrderedDict()
+with open('statics/master_frequency.json', 'rb') as freq_file:
+    fdict =  json.load(freq_file)
 
 # [END imports]
 
@@ -56,6 +66,39 @@ class Tree(webapp2.RequestHandler):
         else:
             self.response.write('No such LCC #')
 # [END tree]
+
+
+# [START stats]
+
+class Stats(webapp2.RequestHandler):
+
+    # this class handles stat
+    # requests for each node
+    def get(self):
+
+        if STATS:
+            self.response.write(json.dumps(STATS))
+
+        else:
+            self.response.error(404)
+
+# [END stats]
+
+class Frequency(webapp2.RequestHandler):
+
+    # this class serves the 
+    # word frequency document
+
+    def get(self):
+
+        req = self.request.get('node')
+
+        try:
+            self.response.write(fdict[req])
+
+        except Exception, e:
+            print e
+            self.response.write(0)
 
 # [START entities]
 
@@ -150,6 +193,8 @@ app = webapp2.WSGIApplication([
     ('/lcco', Tree ),
     ('/upload',DatasetUploadHandler),
     ('/dataset_upload', DatasetUpload),
+    ('/stats', Stats),
+    ('/frequency', Frequency),
     ('/', MainPage),
 ], debug=True)
 # [END app]
