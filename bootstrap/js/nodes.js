@@ -18,6 +18,7 @@ function set_data(data) {
 					),
 					$('<td>').attr('class', 'node-item btn-default').append(data.children[i].description),
 					$('<td>').append(STATS[data.children[i].LCCN]),
+					$('<td>').append(CSTATS[data.children[i].LCCN]),
 					$('<td>').append( 
 						$('<a>').attr('class', 'word-link btn btn-primary').append(
 							$('<p>').attr('class', 'hidden').append(data.children[i].LCCN),
@@ -61,6 +62,7 @@ function reset_table() {
 				$('<th>').append('LCCN'),
 				$('<th>').append('Description'),
 				$('<th>').append('MARC count'),
+				$('<th>').append('Branch MARC count'),
 				$('<th>').append('Word Frequency')
 			)
 		)
@@ -72,6 +74,7 @@ function get_stats() {
 	$.get('/stats',
 		function(stat, status){ 
 			if (stat != null) {
+				get_cstats()
 				stat = JSON.parse(stat)
 				STATS = stat
 				set_data('1')
@@ -84,6 +87,22 @@ function get_stats() {
 		}
 	)
 }
+
+
+function get_cstats() {
+	$.get('/cumm_stats',
+		function(cstat, status){ 
+			if (cstat != null) {
+				cstat = JSON.parse(cstat)
+				CSTATS = cstat
+			}
+			else {
+				return 0
+			}
+		}
+	)
+}
+
 
 
 function set_word_freq(node) {

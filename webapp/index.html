@@ -58,6 +58,7 @@
                 <th> LCCN </th>
                 <th> Description </th>
                 <th> MARC count </th>
+                <th> Branch MARC count </th>
                 <th> Word Frequency </th>
               </tr>
             </table>
@@ -88,6 +89,7 @@
       var word_table = $('#word-table')
       var back = []
       var STATS
+      var CSTATS
 
       $(document).ready(function(){
         get_stats()
@@ -96,7 +98,6 @@
       $('body').on('click','.node-item',function(){
         lccn = $(this).parent().children()
         lccn = lccn.first().text()
-        console.log(lccn)
         back.push(lccn)
         set_data(lccn);
         set_back()

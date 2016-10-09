@@ -35,6 +35,10 @@ STATS = []
 with open('statics/stats.json', 'rb') as stat_file:
     STATS = dict(json.load(stat_file))
 
+# loading cumm_Stats
+with open('statics/cumm_stats.json', 'rb') as cumm_file:
+    CSTATS = dict(json.load(cumm_file))
+
 # master frequency dictionary
 fdict = OrderedDict()
 with open('statics/master_frequency.json', 'rb') as freq_file:
@@ -83,6 +87,23 @@ class Stats(webapp2.RequestHandler):
             self.response.error(404)
 
 # [END stats]
+
+
+# [START Cstats]
+
+class CStats(webapp2.RequestHandler):
+
+    # this class handles stat
+    # requests for each node
+    def get(self):
+
+        if CSTATS:
+            self.response.write(json.dumps(CSTATS))
+
+        else:
+            self.response.error(404)
+
+# [END Cstats]
 
 class Frequency(webapp2.RequestHandler):
 
@@ -194,6 +215,7 @@ app = webapp2.WSGIApplication([
     ('/upload',DatasetUploadHandler),
     ('/dataset_upload', DatasetUpload),
     ('/stats', Stats),
+    ('/cumm_stats', CStats),
     ('/frequency', Frequency),
     ('/', MainPage),
 ], debug=True)
